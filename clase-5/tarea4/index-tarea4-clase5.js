@@ -16,7 +16,7 @@ let promedio = 0
 let numPequeño = arrayNumeros[0]
 let numGrande = arrayNumeros[0]
 let numeroMasRepetido = 0
-let masRepite = {}
+let repeticionDeLosNumeros = {}
 
 arrayNumeros.map(x =>{
 
@@ -30,23 +30,26 @@ arrayNumeros.map(x =>{
     if(x > numGrande){
         numGrande = x
     }
-
-    let maxValor = -10000
-    let numeroRepetido = 0
-
-    if(!(x in masRepite)){
-        masRepite[x] = 1
+    
+    //En este if, si el numero no existe en el objeto lo agrega y si existe le suma una repeticion
+    if(!(x in repeticionDeLosNumeros)){
+        repeticionDeLosNumeros[x] = 1
     }else{
-        masRepite[x] += 1
+        repeticionDeLosNumeros[x] += 1
     }
-    for (let x in masRepite) {
-        if (masRepite[x] > maxValor) {
-            maxValor = masRepite[x];
+
+    let numeroRepetido = 0
+    let cantidadAparicionDelNumero = -1
+    
+    //En este for, recorre el objeto y comprueba que numero tiene mayor repeticion
+    for (let x in repeticionDeLosNumeros) {
+        if (repeticionDeLosNumeros[x] > cantidadAparicionDelNumero) {
+            cantidadAparicionDelNumero = repeticionDeLosNumeros[x];
             numeroRepetido = x;
         }
     }
+    //Por ultimo cambia el valor de la variable "numeroMasRepetido" para que sea lo dicho
     numeroMasRepetido = numeroRepetido
-    
 })
 
 
