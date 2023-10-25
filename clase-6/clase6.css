@@ -1,0 +1,50 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.formEdad{
+    display: flex;
+    justify-content:space-around;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 400px;
+    height: 1000px;
+    background-color: aquamarine;
+    padding: 20px;
+}
+.botones{
+    width: 400px;
+    height: 100px;
+    background-color:blueviolet ;
+    
+    display: flex;
+    justify-content: space-around;
+    align-items:center;
+}
+.botones button{
+    width: 100px;
+    height: 50px;
+}
+.textoEdad{
+    background-color: bisque;
+    width: 400px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.textoSalario{
+    background-color:beige;
+    width: 400px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.cajaInput{
+    display: flex;
+    flex-direction: column;
+
+}
