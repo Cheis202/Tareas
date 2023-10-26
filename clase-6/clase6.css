@@ -3,7 +3,7 @@ body{
     align-items: center;
     justify-content: center;
 }
-.formEdad{
+.form-edad{
     display: flex;
     justify-content:space-around;
     flex-direction: column;
@@ -27,7 +27,7 @@ body{
     width: 100px;
     height: 50px;
 }
-.textoEdad{
+.texto-edad{
     background-color: bisque;
     width: 400px;
     height: 300px;
@@ -35,7 +35,7 @@ body{
     flex-direction: column;
     justify-content: center;
 }
-.textoSalario{
+.texto-salario{
     background-color:beige;
     width: 400px;
     height: 300px;
@@ -43,7 +43,7 @@ body{
     flex-direction: column;
     justify-content: center;
 }
-.cajaInput{
+.caja-input{
     display: flex;
     flex-direction: column;
 
