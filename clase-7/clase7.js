@@ -8,9 +8,6 @@ const $contenedorCiudad = document.getElementById("caja-ciudad")
 const $contenedorRegalo = document.getElementById("caja-regalo")
 
 
-
-const arrayCiudades = Array.from($seleccionarCiudad.options).map(opciones => opciones.value) ;
-
 const parrafoAdvertenciaCiudad = document.createElement("p")
 const parrafoAdvertenciaNombre = document.createElement("p")
 const parrafoAdvertenciaRegalo = document.createElement("p")
@@ -27,37 +24,38 @@ const recuperarDatosFormulario = (event)=>{
     nombreIngresado = $ingresarNombre.value
     regaloIngresado = $descripcionRegalo.value
 }
-const comprobarDatos = (datoNombre,datoCiudad,datoRegalo)=>{
-    comprobarNombre(datoNombre)
-    comprobarCiudad(datoCiudad)
-    comprobarDescripcionRegalo(datoRegalo)
+const comprobarDatos = (nombre,ciudad,regalo)=>{
+    comprobarNombre(nombre)
+    comprobarCiudad(ciudad)
+    comprobarDescripcionRegalo(regalo)
 }
 
 const comprobarCiudad = (ciudad)=>{
-    for(let i = 0; i < arrayCiudades.length;i++){
-        if(ciudad === ""){
-            parrafoAdvertenciaCiudad.textContent = "Debes seleccionar una ciudad"
-            parrafoAdvertenciaCiudad.classList.add("textoRojo")
-            $contenedorCiudad.appendChild(parrafoAdvertenciaCiudad)
-        }
+    
+    if(!ciudad){
+        parrafoAdvertenciaCiudad.textContent = "Debes seleccionar una ciudad"
+        parrafoAdvertenciaCiudad.classList.add("texto-rojo")
+        $contenedorCiudad.appendChild(parrafoAdvertenciaCiudad)
     }
 }
 const comprobarNombre = (nombre)=>{
-    if(nombre === ""){
+    const cantMaxCaracteres = 50
+    if(!nombre){
         parrafoAdvertenciaNombre.textContent = "Debes ingresar almenos 1 caracter"
-        parrafoAdvertenciaNombre.classList.add("textoRojo")
+        parrafoAdvertenciaNombre.classList.add("texto-rojo")
         $contenedorNombre.appendChild(parrafoAdvertenciaNombre)
     }
-    if(nombre.length >50){
-        parrafoAdvertenciaNombre.textContent = "Excediste la cantidad de caracteres (50)"
-        parrafoAdvertenciaNombre.classList.add("textoRojo")
+    if(nombre.length > cantMaxCaracteres ){
+        parrafoAdvertenciaNombre.textContent = `Excediste la cantidad de caracteres (${cantMaxCaracteres})`
+        parrafoAdvertenciaNombre.classList.add("texto-rojo")
         $contenedorNombre.appendChild(parrafoAdvertenciaNombre)
     }
 }
 const comprobarDescripcionRegalo = (regalo)=>{
-    if(regalo.length < 5){
-        parrafoAdvertenciaRegalo.textContent = "La descripcion del regalo debe tener mas de 5 caracteres"
-        parrafoAdvertenciaRegalo.classList.add("textoRojo")
+    const cantMinCaracteres = 5
+    if(regalo.length < cantMinCaracteres){
+        parrafoAdvertenciaRegalo.textContent = `La descripcion del regalo debe tener mas de ${cantMinCaracteres} caracteres`
+        parrafoAdvertenciaRegalo.classList.add("texto-rojo")
         $contenedorRegalo.appendChild(parrafoAdvertenciaRegalo)
     }
 }
