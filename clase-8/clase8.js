@@ -51,7 +51,7 @@ const validarSalario = (salario)=>{
     const salarioMinimo = 0
     const salarioMaximo = 1000000000000
 
-    if(salario === ""){
+    if(!salario){
         return errores.salario.vacio
     }
     if(isNaN(salario)){
@@ -63,14 +63,13 @@ const validarSalario = (salario)=>{
     if(salario > salarioMaximo){
         return errores.salario.maximo
     }
-    return ""
 }
 
 const validarEdad = (edad)=>{ 
     const edadMinima = 0
     const edadMaxima = 116
     const decimal = /[\.,]/
-    if(edad === ""){
+    if(!edad){
         return errores.edad.vacio
     }
     if(decimal.test(edad)){
@@ -85,11 +84,10 @@ const validarEdad = (edad)=>{
     if(edad > edadMaxima ){
         return errores.edad.maxima
     }
-    return ""
 }
 
 
-const preguntarFamilia = ()=>{
+const preguntarCantidadFamiliares = ()=>{
     const cantGrupoFamiliar = Number(prompt("Cuantas personas conforman tu grupo familiar?"))
     validarCantPersonas(cantGrupoFamiliar)
     crearCampos(cantGrupoFamiliar)
@@ -142,38 +140,57 @@ const crearCampos = (cantidadDePersonas)=>{
 
     }
 }
-$btnCalcularEdad.addEventListener("click",(e)=>{
-    e.preventDefault()
-
-    let edades = []
-    let campoEdad = [...document.getElementsByClassName("input-edad")]
-
-    campoEdad.forEach(element => {
-        let error = validarEdad(element.value)
+validarCampos = (datosPorValidar, guardadoDeDatos,validacion)=>{
+    datosPorValidar.forEach(element =>{
+        
+        let error = validacion(element.value)
 
         if(error){
             (element.parentNode).appendChild(crearTextoAdvertencia(error))
         }else{
-            edades.push(Number(element.value))
-        }     
-    });
+            guardadoDeDatos.push(Number(element.value))
+        }    
+    }
+)}
+calcularMenor = (valores)=>{
+    return valores[0]
+}
+calcularMayor = (valores)=>{
+    return valores[valores.length-1]
+}
+calcularPromedio = (valores)=>{
+    let promedio = 0
+
+    valores.forEach(x=>{
+        promedio +=x
+    })
+    return promedio / valores.length
+}
+
+escribirInformacion = (dondeEscribo,queEscribo,valor)=>{
+    return(
+        dondeEscribo.textContent = queEscribo + valor
+    )
+}
+
+$btnCalcularEdad.addEventListener("click",(e)=>{
+    e.preventDefault()
+
+    let edades = []
+    let camposEdad = [...document.getElementsByClassName("input-edad")]
+
+    validarCampos(camposEdad,edades,validarEdad)
 
     edades.sort((a,b)=> a-b)
 
-    const menorEdad = edades[0]
-    const mayorEdad = edades[edades.length-1]
-    let promedioEdad = 0
-
-    for(let i = 0; i < edades.length; i++){
-        promedioEdad += edades[i]
-    }
-
-    promedioEdad = promedioEdad / edades.length
+    const menorEdad = calcularMenor(edades)
+    const mayorEdad = calcularMayor(edades)
+    const promedioEdad = calcularPromedio(edades)
 
    return(
-       $textoMayorEdad.textContent = `La persona mas vieja tiene: ${mayorEdad}`,
-       $textoMenorEdad.textContent = `La persona mas joven tiene: ${menorEdad}`,
-       $textoPromedioEdad.textContent = `El promedio de edad en la familia es de: ${promedioEdad}`  
+        escribirInformacion($textoMayorEdad,"La persona mas vieja tiene: ", mayorEdad),
+        escribirInformacion($textoMenorEdad,"La persona mas joven tiene: ", menorEdad),
+        escribirInformacion($textoPromedioEdad,"El promedio de edad en la familia es de: ", promedioEdad)
    )
     
 })
@@ -182,37 +199,24 @@ $btnCalcularSalario.addEventListener("click",(e)=>{
     e.preventDefault()
 
     let salarios = []
-    let campoSalario = [...document.getElementsByClassName("input-salario")];
+    let camposSalario = [...document.getElementsByClassName("input-salario")];
 
-    campoSalario.forEach(element => {
-        let error = validarSalario(element.value)
-
-        if(error){
-            (element.parentNode).appendChild(crearTextoAdvertencia(error))
-        }else{
-            salarios.push(Number(element.value))
-        }     
-    });
+    validarCampos(camposSalario,salarios,validarSalario)
 
     salarios.sort((a,b)=> a-b)
 
-    const menorSalario = salarios[0]
-    const mayorSalario = salarios[salarios.length-1]
-    let promedioSalario = 0
-
-    for(let i = 0; i < salarios.length; i++){
-        promedioSalario += salarios[i]
-    }
-    promedioSalario = promedioSalario / salarios.length
+    const menorSalario = calcularMenor(salarios)
+    const mayorSalario = calcularMayor(salarios)
+    const promedioSalario = calcularPromedio(salarios)
 
    return(
-       $textoMayorSalario.textContent = `El mayor salario es de $ ${mayorSalario}`,
-       $textoMenorSalario.textContent = `El menor salario es de $ ${menorSalario}`,
-       $textoPromedioSalario.textContent = `El salario promedio es de $ ${promedioSalario}`  
+        escribirInformacion($textoMayorSalario,"El mayor salario es de $", mayorSalario),
+        escribirInformacion($textoMenorSalario,"El menor salario es de $", menorSalario),
+        escribirInformacion($textoPromedioSalario, "El salario promedio es de $", promedioSalario)
    )
     
 })
 
 $btnReiniciar.addEventListener("click",()=>location.reload()) 
 
-preguntarFamilia()
+preguntarCantidadFamiliares()
