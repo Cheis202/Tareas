@@ -1,0 +1,23 @@
+.caja{
+    height: 200px;
+    opacity: 0.5;
+    transition: .5s;
+}
+.color-rojo{
+    background-color: red;
+}
+.color-amarillo{
+    background-color: yellow;
+}
+.color-verde{
+    background-color: green;
+}
+.color-azul{
+    background-color: blue;
+}
+
+.resaltar{
+    opacity: 1;
+}
+
+
