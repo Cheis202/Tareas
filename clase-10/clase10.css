@@ -1,7 +1,7 @@
 .caja{
     height: 200px;
     opacity: 0.5;
-    transition: .5s;
+    transition: .8s;
 }
 .color-rojo{
     background-color: red;
